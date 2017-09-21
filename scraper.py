@@ -5,7 +5,11 @@ import json
 newLine = '\n\r'
 
 # room list, hard coded for now
-rooms = ['https://www.airbnb.co.uk/rooms/14531512?s=51', 'https://www.airbnb.co.uk/rooms/19278160?s=51', 'https://www.airbnb.co.uk/rooms/19292873?s=51']
+rooms = [
+    'https://www.airbnb.co.uk/rooms/14531512?s=51',
+    'https://www.airbnb.co.uk/rooms/19278160?s=51',
+    'https://www.airbnb.co.uk/rooms/19292873?s=51'
+    ]
 
 # required data with key and value for prettyprint
 requiredData = {
@@ -20,19 +24,20 @@ def getPrettyAttributeName(attribute):
     return requiredData[attribute]
 
 def getRoomJson(request):
+    startTag = "<!--"
+    endTag = "-->"
+
     # grab text from http request
     rText = request.text
 
     # trim down the html page
     trimmed = rText[rText.find('<script type="application/json" data-hypernova-key="p3show_marketplacebundlejs"'):]
 
-    # redundant but keeps it tidy for now
-    startTag = trimmed.find("<!--")
-    endTag = trimmed.find("-->")
+    # extract the data we need by the HTML comment tags (remembering to include the length of the start tag itself)
+    data = trimmed[ trimmed.find(startTag) + len(startTag) : trimmed.find(endTag) ]
 
-    data = trimmed[startTag:endTag]
-
-    return json.loads(data[4:len(data)])
+    # load it as json and return it
+    return json.loads(data)
 
 def getListingJson(roomJson):
     # return the data we're interested in from the overall JSON
@@ -89,7 +94,7 @@ if __name__ == "__main__":
 
         printListingTitle(resultsFile)
 
-        #loop around and print each attribute we need
+        # loop around and print each attribute we need
         printListingData(resultsFile,listingData)
 
         printAmenityTitle(resultsFile)

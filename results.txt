@@ -1,0 +1,78 @@
+
+==== ROOM ====
+# of Bathrooms: 1 bath
+# of Bedrooms: 0
+# of Beds: 1
+Property Name: Garden Rooms: Featured in Grand Designs Sept 2017
+Property Type: Entire home/flat
+
+==== AMENITIES ====
+24-hour check-in
+Family/Kid Friendly
+Wheelchair accessible
+Suitable for events
+Kitchen
+Wireless Internet
+Cable TV
+Hair dryer
+TV
+Laptop friendly workspace
+Iron
+Essentials
+Shampoo
+Hangers
+Heating
+Smoke detector
+Carbon monoxide detector
+First aid kit
+Private entrance
+High chair
+Pack ’n Play/travel crib
+
+==== ROOM ====
+# of Bathrooms: 1 bath
+# of Bedrooms: 1
+# of Beds: 1
+Property Name: York Place: Presidential Suite For Two
+Property Type: Entire home/flat
+
+==== AMENITIES ====
+Kitchen
+Wireless Internet
+Hair dryer
+TV
+Laptop friendly workspace
+Iron
+Essentials
+Shampoo
+Washer
+Hangers
+Heating
+Smoke detector
+Carbon monoxide detector
+Private entrance
+
+==== ROOM ====
+# of Bathrooms: 1 bath
+# of Bedrooms: 1
+# of Beds: 1
+Property Name: Turreted apartment near Edinburgh  Castle
+Property Type: Entire home/flat
+
+==== AMENITIES ====
+Family/Kid Friendly
+Kitchen
+Wireless Internet
+Breakfast
+Hair dryer
+Laptop friendly workspace
+Essentials
+Shampoo
+Washer
+Hangers
+Heating
+Smoke detector
+First aid kit
+Safety card
+Fire extinguisher
+
