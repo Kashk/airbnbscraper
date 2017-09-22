@@ -4,8 +4,9 @@ import sys
 
 class airbnbScraper:
 
-    def __init__(self, *init_rooms):
+    def __init__(self, init_rooms):
         self.rooms = []
+        print (init_rooms)
         # required data with key and value for prettyprint
         self.requiredData = {
             'name':'Property Name',
@@ -18,9 +19,9 @@ class airbnbScraper:
         # New line variable for handling prettyprint
         self.newLine = '\n\r'
 
-        if init_rooms is None:
+        if init_rooms is not None:
             for room in init_rooms:
-                rooms.append(room)
+                self.rooms.append(room)
         else:
             # given room list, hard coded for now
             self.rooms = [
