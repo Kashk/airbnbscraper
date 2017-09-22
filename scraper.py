@@ -1,5 +1,6 @@
 import requests
 import json
+import sys
 
 class airbnbScraper:
 
@@ -17,7 +18,7 @@ class airbnbScraper:
         # New line variable for handling prettyprint
         self.newLine = '\n\r'
 
-        if len(init_rooms)>0:
+        if init_rooms is None:
             for room in init_rooms:
                 rooms.append(room)
         else:
@@ -124,7 +125,9 @@ class airbnbScraper:
         print( self.getAmenityData(amenityData) )
 
 if __name__ == "__main__":
-    scraper = airbnbScraper()
+    # pass parameters (ignoring function call)
+    scraper = airbnbScraper(sys.argv[1:])
+
     # opens / creates results file
     #resultsFile = open('results.txt','w', encoding="utf-8")
 
