@@ -6,7 +6,7 @@ class airbnbScraper:
 
     def __init__(self, init_rooms):
         self.rooms = []
-        print (init_rooms)
+        self.results = {}
         # required data with key and value for prettyprint
         self.requiredData = {
             'name':'Property Name',
@@ -58,16 +58,19 @@ class airbnbScraper:
         # return the amenity data
         return listingJson['listing_amenities']
 
+    def getListingId(self,listingJson):
+        return listingJson['id']
+
     def getListingData(self, listingJson):
         # results
-        listingData = ''
+        listingData = {}
         # loop through each attribute in the listing
         for attribute in listingJson:
 
             # if it's something we're interested in, add it to the results
             if attribute in self.requiredData:
                 # grabs the human friendly name for the attribute E.G. "Property Name" for "localized_room_type"
-                listingData += self.getPrettyAttributeName(attribute) + ': ' + str( listingJson[attribute] ) + self.newLine
+                listingData[self.getPrettyAttributeName(attribute)] = listingJson[attribute]
         return listingData
 
     def printListingData(self, filename, listingJson):
@@ -75,7 +78,7 @@ class airbnbScraper:
 
     def getAmenityData(self, amenityJson):
         # results
-        amenityData =''
+        amenityData = []
         # Iterator for unnamed elements in json
         i = 0
 
@@ -86,15 +89,15 @@ class airbnbScraper:
             if amenity['is_present']:
 
                 # amenity names are pretty enough, no need to tidy
-                amenityData += amenityJson[i]['name'] + self.newLine
+                amenityData.append(amenityJson[i]['name'])
             i += 1
         return amenityData
 
     def printAmenityData(self, filename, amenityJson):
         filename.write( self.getAmenityData(amenityJson) )
 
-    def getListingTitle(self):
-        return self.newLine + '==== ROOM ====' + self.newLine
+    def getListingTitle(self, listingId):
+        return self.newLine + '==== ROOM: ' + str ( listingId ) + ' ====' + self.newLine
 
     def printListingTitle(self, filename):
         filename.write(self.getListingTitle())
@@ -106,33 +109,47 @@ class airbnbScraper:
         filename.write(self.getAmenityTitle())
 
     def scrapeUrl(self, url):
+        roomData = {}
         # make the request, get the overall JSON
-        roomData = self.getRoomJson(requests.get(url))
+        urlData = self.getRoomJson(requests.get(url))
 
         # get the listing JSON
-        listingData = self.getListingJson(roomData)
+        listingData = self.getListingJson(urlData)
 
         # get the amenity JSON
         amenityData = self.getAmenityJson(listingData)
 
-        print( self.getListingTitle() )
+        # add listing data to the room object
+        roomData['Listing'] = self.getListingData(listingData)
 
-        # loop around and print each attribute we need
-        print( self.getListingData(listingData) )
+        # add amenity data to room object
+        roomData['Amenities'] = self.getAmenityData(amenityData)
 
-        print( self.getAmenityTitle() )
+        # add room object to the overall results
+        self.results[self.getListingId(listingData)] = roomData
 
-        # loop around and print all present amenities
-        print( self.getAmenityData(amenityData) )
+        return self.results
+
+    def printResults(self):
+        # for each room
+        for entry in self.results:
+            
+            #print the data
+            print( self.getListingTitle( entry ) )
+            for key, value in self.results[entry]['Listing'].items():
+                print (key + ': ' + str( value ) + self.newLine)
+
+            print( self.getAmenityTitle() )
+
+            for amenity in self.results[entry]['Amenities']:
+                print ( str(amenity) )
 
 if __name__ == "__main__":
     # pass parameters (ignoring function call)
     scraper = airbnbScraper(sys.argv[1:])
 
-    # opens / creates results file
-    #resultsFile = open('results.txt','w', encoding="utf-8")
-
     # loop through each room we're interested in
     for room in scraper.rooms:
-
         scraper.scrapeUrl(room)
+
+    scraper.printResults()

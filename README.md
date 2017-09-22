@@ -1,7 +1,7 @@
 # airbnbscraper
-A quick html scraper to pull relevant data from AirBnB pages
+A quick python html scraper to pull relevant data from AirBnB pages
 
-# Required packages
+## Required packages
 * [requests](http://docs.python-requests.org/en/master/)
   * Used when making HTTP request, for simplicities sake
 * [json](https://docs.python.org/2/library/json.html)
@@ -9,14 +9,14 @@ A quick html scraper to pull relevant data from AirBnB pages
 * [sys](https://docs.python.org/2/library/sys.html)
   * Used to grab console parameters
 
-# TO-DO
+## TO-DO
 * Error handling
-* JSON return
+* ~~JSON return~~
 * ~~Closing file creation~~ *(files are gone for now)*
 * ~~Class build~~
 * ~~Console only version~~
 
-# Niceties
+## Niceties
 * Data ordering
 * Scrape by room ID
 * Further work on ReactJS compilation
